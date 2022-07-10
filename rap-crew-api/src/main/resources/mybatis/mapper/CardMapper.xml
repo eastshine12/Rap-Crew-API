@@ -5,8 +5,8 @@
 
 	<select id="selectCard" parameterType="Card" resultType="Card">
         SELECT * 
-        FROM CARD
-        WHERE card_id = #{cardId}
+        FROM TB_CARD
+        WHERE cardId = #{cardId}
     </select>
 
 
