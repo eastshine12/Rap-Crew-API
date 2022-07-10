@@ -1,0 +1,21 @@
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/rapcrew?characterEncoding=UTF-8
+        username: root
+        password: root
+        
+    devtools:
+        livereload:
+            enabled: true
+        restart:
+            enabled: true
+            
+            
+mybatis:  
+    type-aliases-package: com.eastshine.rapcrew.mdl
+    configuration:    
+      map-underscore-to-camel-case: true
+      default-fetch-size: 100
+      default-statement-timeout: 30
+    mapper-locations: classpath:mybatis/mapper/*.xml
