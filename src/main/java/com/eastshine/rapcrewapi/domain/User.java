@@ -2,14 +2,14 @@ package com.eastshine.rapcrewapi.domain;
 
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +44,24 @@ public class User {
 
 
     @PrePersist
-    public void createTime() {
+    private void createTime() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void updateTime() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @Builder
+    public User(String loginId, String password, String nickname, String email, boolean emailAgree, boolean role, boolean enabled) {
+        this.loginId = loginId;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.emailAgree = emailAgree;
+        this.role = role;
+        this.enabled = enabled;
     }
 
 

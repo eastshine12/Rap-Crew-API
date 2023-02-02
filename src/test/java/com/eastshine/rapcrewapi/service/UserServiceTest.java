@@ -1,6 +1,7 @@
 package com.eastshine.rapcrewapi.service;
 
 import com.eastshine.rapcrewapi.domain.User;
+import com.eastshine.rapcrewapi.dto.CreateUserRequestDto;
 import com.eastshine.rapcrewapi.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,20 +23,12 @@ public class UserServiceTest {
     @Test
     public void 회원가입() throws Exception {
         // given
-        User user = new User();
-        user.setLoginId("test1");
-        user.setPassword("1234");
-        user.setNickname("닉네임1");
-        user.setEmail("a@a.com");
-        user.setEmailAgree(false);
-        user.setRole(false);
-        user.setEnabled(true);
 
         // when
-        Long saveId = userService.join(user);
+        boolean saveUser = userService.join(new CreateUserRequestDto("test1", "1234", "닉네임1", "a@a.com", false, false, true));
 
         // then
-        assertEquals(user, userRepository.findById(saveId).get());
+        assertEquals(true, saveUser);
     }
 
 }

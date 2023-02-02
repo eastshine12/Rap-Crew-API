@@ -2,6 +2,7 @@ package com.eastshine.rapcrewapi.service;
 
 
 import com.eastshine.rapcrewapi.domain.User;
+import com.eastshine.rapcrewapi.dto.CreateUserRequestDto;
 import com.eastshine.rapcrewapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,15 @@ public class UserService {
     /**
      * 회원 가입
      */
-    public Long join(User user) {
-        userRepository.save(user);
-        return user.getId();
+    public boolean join(CreateUserRequestDto user) {
+
+        if(userRepository.findByLoginId(user.getLoginId()).isPresent()) {
+            return false;
+        }
+
+        userRepository.save(user.toEntity());
+
+        return true;
     }
 
 }
