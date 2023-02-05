@@ -28,7 +28,7 @@ public class UserServiceTest {
         boolean saveUser = userService.join(new CreateUserRequestDto("test1", "1234", "닉네임1", "a@a.com", false, false, true));
 
         // then
-        assertEquals(true, saveUser);
+        assertEquals(true, userRepository.findByLoginId("test1").isPresent());
     }
 
 }
