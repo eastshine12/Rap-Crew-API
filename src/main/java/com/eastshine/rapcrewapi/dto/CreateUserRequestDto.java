@@ -4,8 +4,10 @@ import com.eastshine.rapcrewapi.domain.User;
 import com.sun.istack.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class CreateUserRequestDto {
 
     @NotNull
