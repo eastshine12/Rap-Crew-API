@@ -1,6 +1,7 @@
 package com.eastshine.rapcrewapi.domain;
 
 
+import com.eastshine.rapcrewapi.dto.UpdateUserRequestDto;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -27,14 +28,14 @@ public class User {
     private String email;
 
     @Column(name = "email_agree")
-    private boolean emailAgree;
+    private Boolean emailAgree;
 
     @Column(name = "last_login_time")
     private LocalDateTime lastLoginTime;
 
-    private boolean role; // 회원 - 0, 관리자 - 1
+    private Boolean role; // 회원 - 0, 관리자 - 1
 
-    private boolean enabled;
+    private Boolean enabled;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -54,7 +55,7 @@ public class User {
     }
 
     @Builder
-    public User(String loginId, String password, String nickname, String email, boolean emailAgree, boolean role, boolean enabled) {
+    public User(String loginId, String password, String nickname, String email, Boolean emailAgree, Boolean role, Boolean enabled) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
@@ -62,6 +63,15 @@ public class User {
         this.emailAgree = emailAgree;
         this.role = role;
         this.enabled = enabled;
+    }
+
+    public void updateUser(UpdateUserRequestDto request) {
+        if (request.getPassword() != null) this.password = request.getPassword();
+        if (request.getNickname() != null) this.nickname = request.getNickname();
+        if (request.getEmail() != null) this.email = request.getEmail();
+        if (request.getEmailAgree() != null) this.emailAgree = request.getEmailAgree();
+        if (request.getRole() != null) this.role = request.getRole();
+        if (request.getEnabled() != null) this.enabled = request.getEnabled();
     }
 
 

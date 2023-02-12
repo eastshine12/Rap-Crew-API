@@ -13,11 +13,11 @@ public class CreateUserRequestDto {
     @NotNull
     private String loginId, password, nickname, email;
     @NotNull
-    private boolean emailAgree, role, enabled;
+    private Boolean emailAgree, role, enabled;
 
     @Builder
     public CreateUserRequestDto(String loginId, String password, String nickname, String email,
-                                boolean emailAgree, boolean role, boolean enabled) {
+                                Boolean emailAgree, Boolean role, Boolean enabled) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;

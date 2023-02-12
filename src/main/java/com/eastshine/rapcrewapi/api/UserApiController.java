@@ -1,12 +1,12 @@
 package com.eastshine.rapcrewapi.api;
 
 import com.eastshine.rapcrewapi.dto.CreateUserRequestDto;
+import com.eastshine.rapcrewapi.dto.UpdateUserRequestDto;
 import com.eastshine.rapcrewapi.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class UserApiController {
 
     @PostMapping("")
     public Map<String, Object> saveUser(@RequestBody @Valid CreateUserRequestDto request) {
-        System.out.println(request.toString());
+
         Map<String, Object> response = new HashMap<>();
         if(userService.join(request)) {
             response.put("result", "SUCCESS");
@@ -33,5 +33,26 @@ public class UserApiController {
         return response;
     }
 
+    @PutMapping("/{id}")
+    public UpdateUserResponse updateUser(@PathVariable("id") Long id,
+                                         @RequestBody @Valid UpdateUserRequestDto request) {
+
+        System.out.println(request.toString());
+        System.out.println("id = " + id);
+
+        userService.update(id, request);
+
+
+        return new UpdateUserResponse("SUCCESS", "", id);
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateUserResponse {
+        private String result;
+        private String reason;
+        private Long id;
+    }
 
 }
