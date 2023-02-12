@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -48,6 +50,13 @@ public class UserService {
         userRepository.save(user);
 
         return true;
+    }
+
+    /**
+     * 전체 회원 조회
+     */
+    public List<User> findUsers() {
+        return userRepository.findAll();
     }
 
 }
