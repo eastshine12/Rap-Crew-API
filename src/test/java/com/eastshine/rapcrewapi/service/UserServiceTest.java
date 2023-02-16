@@ -33,7 +33,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void 회원정보수정() throws  Exception {
+    public void 회원정보수정() throws Exception {
         // given
         User user = userRepository.save(new CreateUserRequestDto("test2", "1234", "닉네임1", "b@b.com", false, false, true).toEntity());
 
@@ -43,5 +43,6 @@ public class UserServiceTest {
         // then
         assertEquals("닉네임2", userRepository.findById(user.getId()).get().getNickname());
     }
+
 
 }

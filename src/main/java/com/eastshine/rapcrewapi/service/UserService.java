@@ -59,4 +59,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
+    /**
+     * 개별 회원 조회
+     */
+    public User findUser(String loginId) {
+        User user = userRepository.findByLoginId(loginId).get();
+        return user;
+    }
+
 }

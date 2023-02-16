@@ -24,7 +24,18 @@ public class UserApiController {
     private final UserService userService;
 
 
+
     @GetMapping("")
+    public UserDto user(@RequestBody UserDto userDto) {
+        System.out.println(userDto.toString());
+        User user = userService.findUser(userDto.getLoginId());
+        userDto.setEmail(user.getEmail());
+        userDto.setNickname(user.getNickname());
+        userDto.setEmailAgree(user.getEmailAgree());
+        return userDto;
+
+    }
+    @GetMapping("/all")
     public Result users() {
 
         List<User> findUsers = userService.findUsers();
@@ -39,6 +50,7 @@ public class UserApiController {
     @PostMapping("")
     public Map<String, Object> saveUser(@RequestBody @Valid CreateUserRequestDto request) {
 
+        /* response dto 생성하기 */
         Map<String, Object> response = new HashMap<>();
         if(userService.join(request)) {
             response.put("result", "SUCCESS");
@@ -54,13 +66,9 @@ public class UserApiController {
     public UpdateUserResponse updateUser(@PathVariable("id") Long id,
                                          @RequestBody @Valid UpdateUserRequestDto request) {
 
-        System.out.println(request.toString());
-        System.out.println("id = " + id);
+        boolean result = userService.update(id, request);
 
-        userService.update(id, request);
-
-
-        return new UpdateUserResponse("SUCCESS", "", id);
+        return new UpdateUserResponse(result?"SUCCESS":"FAIL", result?"":"user does not exist.", id);
 
     }
 
