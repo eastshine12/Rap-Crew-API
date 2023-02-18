@@ -2,6 +2,7 @@ package com.eastshine.rapcrewapi.dto;
 
 import com.eastshine.rapcrewapi.domain.Article;
 import com.eastshine.rapcrewapi.domain.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class CreateArticleDto {
 
     private String image;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime recruitAt;
 
     private Integer recruitNum;
