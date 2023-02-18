@@ -35,6 +35,7 @@ public class User {
 
     private Boolean role; // 회원 - 0, 관리자 - 1
 
+    @NotNull
     private Boolean enabled;
 
     @Column(name = "created_at")
