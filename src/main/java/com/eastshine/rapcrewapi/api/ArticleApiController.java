@@ -1,15 +1,18 @@
 package com.eastshine.rapcrewapi.api;
 
+import com.eastshine.rapcrewapi.domain.Article;
+import com.eastshine.rapcrewapi.dto.ArticleDto;
 import com.eastshine.rapcrewapi.dto.CreateArticleDto;
+import com.eastshine.rapcrewapi.dto.UserDto;
 import com.eastshine.rapcrewapi.service.ArticleService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,6 +38,26 @@ public class ArticleApiController {
 
     }
 
+    @GetMapping("/all")
+    public Result getArticleAll() {
+        System.out.println("ArticleApiController.getArticleAll");
+        List<ArticleDto> all = articleService.getArticleAll();
+        return new Result(all);
+    }
+
+    @GetMapping("")
+    public Result getArticleByUserId(@RequestBody UserDto userDto) {
+        System.out.println("ArticleApiController.getArticleById");
+        System.out.println("userDto = " + userDto);
+
+        return new Result(null);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
 
 
 }
