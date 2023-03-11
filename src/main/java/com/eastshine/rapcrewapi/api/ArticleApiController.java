@@ -24,17 +24,17 @@ public class ArticleApiController {
 
 
     @PostMapping("")
-    public Map<String, Object> writeArticle(@RequestBody @Valid CreateArticleDto articleDto) {
+    public Result writeArticle(@RequestBody @Valid CreateArticleDto articleDto) {
 
         Map<String, Object> response = new HashMap<>();
         if(articleService.write(articleDto) != null) {
             response.put("result", "SUCCESS");
         } else {
             response.put("result", "FAIL");
-            response.put("reason", "이미 등록된 회원입니다.");
+            response.put("reason", "등록된 회원이 없습니다.");
         }
 
-        return response;
+        return new Result(response);
 
     }
 
