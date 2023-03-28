@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Reply {
+public class Likey {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,36 +21,27 @@ public class Reply {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    private Integer type;
 
-    private String content;
+    @Column(name = "target_id")
+    private Long targetId;
 
-    @NotNull
     private Boolean enabled;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @PrePersist
-    private void createTime() {
+    public void createdTime() {
         this.createdAt = LocalDateTime.now();
     }
 
-    @PreUpdate
-    private void updateTime() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
     @Builder
-    public Reply(User user, Article article, String content, Boolean enabled) {
+    public Likey(User user, Integer type, Long targetId, Boolean enabled) {
         this.user = user;
-        this.article = article;
-        this.content = content;
+        this.type = type;
+        this.targetId = targetId;
         this.enabled = enabled;
     }
 

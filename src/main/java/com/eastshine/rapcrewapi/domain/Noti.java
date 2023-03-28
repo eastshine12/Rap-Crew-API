@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Reply {
+public class Noti {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,39 +19,38 @@ public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User receiver;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "target_user_id")
+    private User sender;
+
+    private Integer type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_article_id")
     private Article article;
 
-    private String content;
+    @Column(name = "is_read")
+    private Boolean isRead;
 
-    @NotNull
     private Boolean enabled;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
     @PrePersist
-    private void createTime() {
+    public void createdTime() {
         this.createdAt = LocalDateTime.now();
     }
 
-    @PreUpdate
-    private void updateTime() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
     @Builder
-    public Reply(User user, Article article, String content, Boolean enabled) {
-        this.user = user;
+    public Noti(User receiver, User sender, Integer type, Article article, Boolean isRead, Boolean enabled) {
+        this.receiver = receiver;
+        this.sender = sender;
+        this.type = type;
         this.article = article;
-        this.content = content;
+        this.isRead = isRead;
         this.enabled = enabled;
     }
-
 }

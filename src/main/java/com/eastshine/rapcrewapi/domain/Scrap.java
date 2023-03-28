@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Reply {
+public class Scrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,33 +25,19 @@ public class Reply {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    private String content;
-
-    @NotNull
-    private Boolean enabled;
-
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
     @PrePersist
-    private void createTime() {
+    private void createdTime() {
         this.createdAt = LocalDateTime.now();
     }
 
-    @PreUpdate
-    private void updateTime() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
     @Builder
-    public Reply(User user, Article article, String content, Boolean enabled) {
+    public Scrap(User user, Article article) {
         this.user = user;
         this.article = article;
-        this.content = content;
-        this.enabled = enabled;
+
     }
 
 }
