@@ -3,6 +3,7 @@ package com.eastshine.rapcrewapi.api;
 import com.eastshine.rapcrewapi.domain.Article;
 import com.eastshine.rapcrewapi.dto.ArticleDto;
 import com.eastshine.rapcrewapi.dto.CreateArticleDto;
+import com.eastshine.rapcrewapi.dto.UpdateArticleRequestDto;
 import com.eastshine.rapcrewapi.dto.UserDto;
 import com.eastshine.rapcrewapi.service.ArticleService;
 import lombok.AllArgsConstructor;
@@ -45,13 +46,36 @@ public class ArticleApiController {
         return new Result(all);
     }
 
-    @GetMapping("")
-    public Result getArticleByUserId(@RequestBody UserDto userDto) {
-        System.out.println("ArticleApiController.getArticleById");
-        System.out.println("userDto = " + userDto);
 
-        return new Result(null);
+    @GetMapping("/{articleId}")
+    public Result getArticle(@PathVariable Long articleId) {
+        System.out.println("ArticleApiController.getArticle");
+
+        return new Result(articleService.getArticle(articleId));
     }
+
+    @PutMapping("/{articleId}")
+    public Result updateArticle(@PathVariable Long articleId,
+                                @RequestBody UpdateArticleRequestDto articleRequestDto) {
+        System.out.println("ArticleApiController.updateArticle");
+        System.out.println("articleId = " + articleId);
+        System.out.println("articleRequestDto = " + articleRequestDto);
+
+        boolean result = articleService.updateArticle(articleId, articleRequestDto);
+
+        return new Result(result? "success":"fail");
+    }
+
+    @PutMapping("/del/{articleId}")
+    public Result deleteArticle(@PathVariable Long articleId) {
+        System.out.println("ArticleApiController.deleteArticle");
+        System.out.println("articleId = " + articleId);
+
+        boolean result = articleService.deleteArticle(articleId);
+
+        return new Result(result? "success":"fail");
+    }
+
 
     @Data
     @AllArgsConstructor

@@ -1,6 +1,7 @@
 package com.eastshine.rapcrewapi.domain;
 
 
+import com.eastshine.rapcrewapi.dto.UpdateArticleRequestDto;
 import com.sun.istack.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -74,4 +75,18 @@ public class Article {
         this.recruitNum = recruitNum;
         this.enabled = enabled;
     }
+
+    public void updateArticle(UpdateArticleRequestDto request) {
+        if (request.getTitle() != null) this.title = request.getTitle();
+        if (request.getContent() != null) this.content = request.getContent();
+        if (request.getImage() != null) this.image = request.getImage();
+        if (request.getRecruitAt() != null) this.recruitAt = request.getRecruitAt();
+        if (request.getRecruitNum() != null) this.recruitNum = request.getRecruitNum();
+        if (request.getEnabled() != null) this.enabled = request.getEnabled();
+    }
+
+    public void deleteArticle() {
+        this.enabled = false;
+    }
+
 }

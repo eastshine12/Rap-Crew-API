@@ -21,6 +21,9 @@ public class Likey {
     @JoinColumn(name = "user_id")
     private User user;
 
+    /*
+    게시글 1 / 댓글 2 / 유저 3
+    */
     private Integer type;
 
     @Column(name = "target_id")
