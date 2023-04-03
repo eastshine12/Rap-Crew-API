@@ -1,17 +1,16 @@
 package com.eastshine.rapcrewapi.api;
 
 import com.eastshine.rapcrewapi.dto.CreateReplyDto;
+import com.eastshine.rapcrewapi.dto.ReplyDto;
 import com.eastshine.rapcrewapi.service.ReplyService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,6 +33,13 @@ public class ReplyApiController {
 
         return new Result(response);
 
+    }
+
+    @GetMapping("/{articleId}")
+    public Result getReply(@PathVariable Long articleId) {
+        System.out.println("ReplyApiController.getReply");
+        List<ReplyDto> replyDtoList = replyService.getReply(articleId);
+        return new Result(replyDtoList);
     }
 
     @Data
