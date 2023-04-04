@@ -42,6 +42,26 @@ public class ReplyApiController {
         return new Result(replyDtoList);
     }
 
+
+    @PutMapping("{replyId}")
+    public Result updateReply(@PathVariable Long replyId, @RequestBody ReplyDto replyDto) {
+        System.out.println("ReplyApiController.updateReply");
+
+        boolean result = replyService.updateReply(replyId, replyDto);
+
+        return new Result(result? "success":"fail");
+    }
+
+    @PutMapping("/del/{replyId}")
+    public Result deleteReply(@PathVariable Long replyId) {
+        System.out.println("ReplyApiController.deleteReply");
+
+        boolean result = replyService.deleteReply(replyId);
+
+        return new Result(result? "success":"fail");
+    }
+
+
     @Data
     @AllArgsConstructor
     static class Result<T> {

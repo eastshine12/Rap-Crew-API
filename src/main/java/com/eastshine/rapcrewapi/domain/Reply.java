@@ -1,5 +1,6 @@
 package com.eastshine.rapcrewapi.domain;
 
+import com.eastshine.rapcrewapi.dto.ReplyDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,6 +54,14 @@ public class Reply {
         this.article = article;
         this.content = content;
         this.enabled = enabled;
+    }
+
+    public void updateReply(ReplyDto dto) {
+        if(dto.getContent() != null) this.content = dto.getContent();
+    }
+
+    public void deleteReply() {
+        this.enabled = false;
     }
 
 }

@@ -49,5 +49,33 @@ public class ReplyService {
         return replies;
     }
 
+    @Transactional
+    public Boolean updateReply(Long replyId, ReplyDto replyDto) {
+        Reply reply = replyRepository.findById(replyId).orElseThrow(()
+                -> new IllegalArgumentException("작성된 댓글이 없습니다. id = " + replyId));
+
+        if (reply.getId() == null) return false;
+
+        reply.updateReply(replyDto);
+        replyRepository.saveAndFlush(reply);
+
+        return true;
+    }
+
+
+    @Transactional
+    public Boolean deleteReply(Long replyId) {
+        Reply reply = replyRepository.findById(replyId).orElseThrow(()
+                -> new IllegalArgumentException("작성된 댓글이 없습니다. id = " + replyId));
+
+        if (reply.getId() == null) return false;
+
+        reply.deleteReply();
+        replyRepository.saveAndFlush(reply);
+
+        return true;
+    }
+
+
 
 }
