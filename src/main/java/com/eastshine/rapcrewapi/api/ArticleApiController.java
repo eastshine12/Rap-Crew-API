@@ -9,6 +9,7 @@ import com.eastshine.rapcrewapi.service.ArticleService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,9 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Slf4j
 @RequestMapping(path = "api/article")
 @RequiredArgsConstructor
+@RestController
 public class ArticleApiController {
 
     private final ArticleService articleService;
@@ -41,7 +43,7 @@ public class ArticleApiController {
 
     @GetMapping("/all")
     public Result getArticleAll() {
-        System.out.println("ArticleApiController.getArticleAll");
+        log.info("ArticleApiController.getArticleAll");
         List<ArticleDto> all = articleService.getArticleAll();
         return new Result(all);
     }
@@ -49,7 +51,7 @@ public class ArticleApiController {
 
     @GetMapping("/{articleId}")
     public Result getArticle(@PathVariable Long articleId) {
-        System.out.println("ArticleApiController.getArticle");
+        log.info("ArticleApiController.getArticle");
 
         return new Result(articleService.getArticle(articleId));
     }
@@ -57,9 +59,9 @@ public class ArticleApiController {
     @PutMapping("/{articleId}")
     public Result updateArticle(@PathVariable Long articleId,
                                 @RequestBody UpdateArticleRequestDto articleRequestDto) {
-        System.out.println("ArticleApiController.updateArticle");
-        System.out.println("articleId = " + articleId);
-        System.out.println("articleRequestDto = " + articleRequestDto);
+        log.info("ArticleApiController.updateArticle");
+        log.info("articleId = " + articleId);
+        log.info("articleRequestDto = " + articleRequestDto);
 
         boolean result = articleService.updateArticle(articleId, articleRequestDto);
 
@@ -68,8 +70,8 @@ public class ArticleApiController {
 
     @PutMapping("/del/{articleId}")
     public Result deleteArticle(@PathVariable Long articleId) {
-        System.out.println("ArticleApiController.deleteArticle");
-        System.out.println("articleId = " + articleId);
+        log.info("ArticleApiController.deleteArticle");
+        log.info("articleId = " + articleId);
 
         boolean result = articleService.deleteArticle(articleId);
 

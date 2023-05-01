@@ -8,6 +8,7 @@ import com.eastshine.rapcrewapi.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,18 +17,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping(path = "/api/user")
+@Slf4j
 @RequiredArgsConstructor
+@RequestMapping(path = "/api/user")
+@RestController
 public class UserApiController {
 
     private final UserService userService;
 
 
-
     @GetMapping("")
-    public UserDto user(@RequestBody UserDto userDto) {
-        System.out.println(userDto.toString());
+    public UserDto getUser(@RequestBody UserDto userDto) {
+
+        log.info("UserApiController getUser " + userDto.toString());
+
         User user = userService.findUser(userDto.getLoginId());
         userDto.setEmail(user.getEmail());
         userDto.setNickname(user.getNickname());
@@ -40,7 +43,7 @@ public class UserApiController {
 
         List<User> findUsers = userService.findUsers();
         List<UserDto> collect = findUsers.stream()
-                .map(m -> new UserDto(m.getLoginId(), m.getNickname(), m.getEmail(), m.getEmailAgree()))
+                .map(m -> new UserDto(m.getLoginId(), null, m.getNickname(), m.getEmail(), m.getEmailAgree()))
                 .collect(Collectors.toList());
 
         return new Result(collect);
@@ -61,6 +64,15 @@ public class UserApiController {
 
         return response;
     }
+
+    @PostMapping("/login")
+    public Result login(@RequestBody UserDto userDto) {
+        return new Result(userService.login(userDto));
+    }
+
+
+
+
 
     @PutMapping("/{id}")
     public UpdateUserResponse updateUser(@PathVariable("id") Long id,
@@ -88,3 +100,4 @@ public class UserApiController {
     }
 
 }
+

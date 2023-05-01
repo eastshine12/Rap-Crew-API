@@ -2,7 +2,7 @@ package com.eastshine.rapcrewapi.domain;
 
 
 import com.eastshine.rapcrewapi.dto.UpdateArticleRequestDto;
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -12,11 +12,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ArticleDto {
 
+    private Long id;
     private String title, content, image, nickname;
     private LocalDateTime recruitAt, createdAt;
     private Integer recruitNum;
 
     public ArticleDto(Article article) {
+        id = article.getId();
         title = article.getTitle();
         content = article.getContent();
         image = article.getImage();

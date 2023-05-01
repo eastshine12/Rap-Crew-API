@@ -2,16 +2,24 @@ package com.eastshine.rapcrewapi.domain;
 
 
 import com.eastshine.rapcrewapi.dto.UpdateUserRequestDto;
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class User {
+@Entity
+public class User implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -75,5 +83,55 @@ public class User {
         if (request.getEnabled() != null) this.enabled = request.getEnabled();
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
 
+        List<String> roles = new ArrayList<>();
+
+        if (this.role) {
+            roles.add("ROLE_ADMIN");
+        } else {
+            roles.add("ROLE_USER");
+        }
+
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return this.loginId;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    public List<String> getRoles() {
+        List<String> roles = new ArrayList<>();
+
+        if (this.role) {
+            roles.add("ROLE_ADMIN");
+        } else {
+            roles.add("ROLE_USER");
+        }
+        return roles;
+    }
 }

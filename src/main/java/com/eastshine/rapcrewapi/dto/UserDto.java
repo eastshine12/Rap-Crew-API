@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-    private String loginId, nickname, email;
+    private String loginId, password, nickname, email;
     private Boolean emailAgree;
 
 }
