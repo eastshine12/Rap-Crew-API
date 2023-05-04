@@ -83,9 +83,8 @@ public class User implements UserDetails {
         if (request.getEnabled() != null) this.enabled = request.getEnabled();
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
 
+    public List<String> getRoles() {
         List<String> roles = new ArrayList<>();
 
         if (this.role) {
@@ -93,6 +92,13 @@ public class User implements UserDetails {
         } else {
             roles.add("ROLE_USER");
         }
+        return roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        List<String> roles = getRoles();
 
         return roles.stream()
                 .map(SimpleGrantedAuthority::new)
@@ -124,14 +130,4 @@ public class User implements UserDetails {
         return this.enabled;
     }
 
-    public List<String> getRoles() {
-        List<String> roles = new ArrayList<>();
-
-        if (this.role) {
-            roles.add("ROLE_ADMIN");
-        } else {
-            roles.add("ROLE_USER");
-        }
-        return roles;
-    }
 }
