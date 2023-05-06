@@ -72,7 +72,7 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        log.info("[resolveToken] JwtTokenProvider getUsername");
+        log.info("[resolveToken] JwtTokenProvider resolveToken");
         /*
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

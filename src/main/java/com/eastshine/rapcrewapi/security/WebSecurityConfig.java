@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // RestAPI 기반 애플리케이션 동작방식. JWT 토큰 인증으로 세션 사용 않기 때문에 STATELESS
                 .and()
                 .authorizeRequests() // 요청에 대한 사용 권한 체크
+                .antMatchers("/api/article").authenticated()
                 .antMatchers("/sign-api/sign-in", "/sign-api/sign-up", "/sign-api/exception").permitAll()
                 .antMatchers("**exception**").permitAll() // 해당 패턴에 대해 모두 허용
 //                .anyRequest().hasRole("ADMIN")
@@ -46,7 +47,7 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/ignore1", "ignore2"); // 인증, 인가 무시 경로 설정
+        return (web) -> web.ignoring().antMatchers("/ignore1", "/ignore2"); // 인증, 인가 무시 경로 설정
     }
 
     @Bean
