@@ -1,13 +1,21 @@
 # Rap-Crew-API
-힙합 뮤지션들을 위한 구인 커뮤니티. Back-End(Spring Boot)
+>힙합 뮤지션들을 위한 크루원 구인 커뮤니티
 
 <br>
 
+## 제작 기간
+2023년 2월 ~ 2023년 5월 <br>
+개인 프로젝트
 
-## 기술 스택
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white" style="height : 25px; margin-left : 10px; margin-right : 10px;"/></a>&nbsp;
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white" style="height : 25px; margin-left : 10px; margin-right : 10px;"/></a>&nbsp;
-<img src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=Gradle&logoColor=white" style="height : 25px; margin-left : 10px; margin-right : 10px;"/></a>&nbsp;
+<br>
+
+## 사용 기술
+  - Java 11
+  - Spring Boot 2.7.8
+  - Gradle
+  - Spring Data JPA
+  - MariaDB 10.6
+  - Spring Security
 
 
 <br>
@@ -18,3 +26,10 @@
 
 (원본 크게 보기)
 https://www.erdcloud.com/d/9xGFvmZNu34GasP86
+
+
+<br><br>
+
+## 기능 구현 내용
+1. 작성 중
+
