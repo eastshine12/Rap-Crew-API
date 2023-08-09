@@ -33,7 +33,7 @@ https://www.erdcloud.com/d/9xGFvmZNu34GasP86
 <br><br>
 
 ## 기능 구현 내용
-1. Web Server에서 DB에 접근하기 위한 RestAPI 통신
+1. Web Server에서 DB에 접근하기 위한 RestAPI 구현
 ```
 @RequestMapping(path = "/api/user")
 @RestController
