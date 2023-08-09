@@ -6,6 +6,8 @@
 ## 제작 기간
 2023년 2월 ~ 2023년 5월 <br>
 개인 프로젝트
+<br>
+###### Front 구현 repository는 https://github.com/eastshine12/Rap-Crew 
 
 <br>
 
